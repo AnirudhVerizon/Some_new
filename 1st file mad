@@ -79,4 +79,15 @@ override fun onFocusChange(p0: View?, focus: Boolean) {
                 android:textColor="@color/white"
                 android:visibility="gone" />
 
+        if (model.quertHintLabel != null) {
+            searchResultsView?.hint = model.quertHintLabel?.text
+            if (model.quertHintLabel?.fontStyle == null) {
+                searchResultsView?.typeface =
+                    Utils.getFontStyle(context, Utils.VERIZONNHGEDS_REGULAR)
+            } else {
+                searchResultsView?.typeface =
+                    Utils.getFontStyle(context, model.quertHintLabel?.fontStyle)
+            }
+        }
+
 
