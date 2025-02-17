@@ -1,0 +1,82 @@
+override fun onFocusChange(p0: View?, focus: Boolean) {
+        if (focus) {
+            iv_voice_input?.visibility = View.VISIBLE
+            gradientDrawable?.apply{
+                setColor(ContextCompat.getColor(
+                    this@HABContentMoleculeView.context,
+                    R.color.vds_color_palette_white
+                ))
+                setStroke(4,ContextCompat.getColor(this@HABContentMoleculeView.context,R.color.vds_color_background_primary_dark))
+            }
+            gradientDrawable?.setColor(
+                ContextCompat.getColor(
+                    this.context,
+                    R.color.vds_color_palette_white
+                )
+            )
+            onSearchListener?.hideToolbarForSearch()
+            hab_content_view_root?.setBackgroundColor(
+                ContextCompat.getColor(
+                    this.context,
+                    R.color.white
+                )
+            )
+            habContentModel?.habSearch?.image?.let {
+                iv_search?.setOnClickListener { }
+                iv_search?.applyStyle(it)
+            } ?: run {
+                iv_search?.setColorFilter(ContextCompat.getColor(this.context, R.color.black))
+            }
+            iv_assistant?.visibility = View.GONE
+            divider?.visibility = GONE
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                iv_hab_back?.setColorFilter(ContextCompat.getColor(this.context, R.color.black))
+                if (!scope.isActive) {
+                    scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+                    observerSearch()
+                }
+                isSearchActive = true
+                showHabBackArrow()
+                onSearchListener?.showOrHideOverlay(
+                    true,
+                    globalSearchListTemplateModel = initialSearchTemplate()
+                )
+                searchResultsView?.text?.toString()?.let {
+                    if (it.isNotEmpty()) {
+                        performApiCall(it)
+                    }
+                }
+            }, 300)
+        }
+    }
+
+    fun clearSearchFocus() {
+        habContentModel?.let {
+            setBackgroundToSearch(it.inverted)
+            setSearchIconColor(it)
+            animateCornerRadius(4f, 36f)
+        }
+        searchResultsView?.clearFocus()
+        searchResultsView?.setText(Constants.EMPTY)
+        searchResultsView?.hideKeyboard()
+    }
+
+            <com.vzw.hss.myverizon.atomic.views.atoms.LabelAtomView
+                android:id="@+id/et_search"
+                style="@style/LabelAtomStyle.RegularBodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/view_margin_fourteen_dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_toEndOf="@id/iv_search"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:text="How can we help?"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+
