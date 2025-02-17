@@ -79,6 +79,20 @@ override fun onFocusChange(p0: View?, focus: Boolean) {
                 android:textColor="@color/white"
                 android:visibility="gone" />
 
+    override fun applyStyle(model: HABContentModel) {
+        applyCommonStyles(model)
+        this.habContentModel = model
+        this.visibility = View.VISIBLE
+        rootRl?.contentDescription = null
+        iv_assistant?.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+        searchArea?.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+        et_search?.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+        searchAction = model.searchActionModel
+        searchDoneAction = model.searchDoneActionModel
+        inverted = model.inverted
+        globalSearchListTemplateModel =
+            model.globalSearchListTemplateModel as? GlobalSearchListTemplateModel
+        initialialMoleculeList = model.sectionMoleculeList
         if (model.quertHintLabel != null) {
             searchResultsView?.hint = model.quertHintLabel?.text
             if (model.quertHintLabel?.fontStyle == null) {
