@@ -1,0 +1,13 @@
+        override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
+            super.doUpdateVisitedHistory(view, url, isReload)
+            newReclicLogUrl = url
+
+        }
+
+ReclicLogUrl = "${this.scheme}://${this.host}${this.path}"
+
+https://www.verizon.com/digital/nsa/secure/ui/cpc/mvm?pmd=y&tabbar=true&intcmp=uad-screen&tabbar=true&adobe_mc=TS%3D1740391417%7CMCMID%3D91780727362982861445653975722024638858%7CMCORGID%3D777B575E55828EBB7F000101%40AdobeOrg#/dataselectorperks.
+
+
+
+https://www.verizon.com/digital/nsa/secure/ui/cpc/dataselectorperks
